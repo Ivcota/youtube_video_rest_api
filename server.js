@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/config.env" });
 
+const userRoutes = require("./routes/users");
 const playlistRoutes = require("./routes/playlists");
 const videoRoutes = require("./routes/videos");
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 // Routes
+app.use("/users", userRoutes);
 app.use("/videos", videoRoutes);
 app.use("/playlists", playlistRoutes);
 

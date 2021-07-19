@@ -9,7 +9,26 @@ router.get("/", async (req, res) => {
 
   res.status(200).json({
     success: true,
+    database: process.env.DATABASE_TYPE,
     data: vidoes,
+  });
+});
+
+// GET ONE
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const baseId = parseInt(id);
+  const video_ = await video.findUnique({
+    where: {
+      id: baseId,
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    database: process.env.DATABASE_TYPE,
+    data: video_,
   });
 });
 
@@ -30,6 +49,7 @@ router.post("/", async (req, res) => {
 
     res.status(200).json({
       success: true,
+      database: process.env.DATABASE_TYPE,
       data: videos,
     });
   } catch (error) {

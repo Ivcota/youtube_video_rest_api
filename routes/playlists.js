@@ -16,6 +16,27 @@ router.get("/", async (req, res) => {
   });
 });
 
+// GET ONE
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const baseId = parseInt(id);
+  const playlist_ = await playlist.findUnique({
+    where: {
+      id: baseId,
+    },
+    include: {
+      videos: true,
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    database: process.env.DATABASE_TYPE,
+    data: playlist_,
+  });
+});
+
 // POST
 router.post("/", async (req, res) => {
   const { title, desc } = req.body;
